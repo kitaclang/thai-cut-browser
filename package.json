@@ -1,0 +1,57 @@
+{
+  "name": "thai-cut-browser",
+  "description": "A frontend-optimized thai word breaker fork from wordcut with TypeScript support.",
+  "version": "1.0.0",
+  "homepage": "https://github.com/kitaclang/thai-cut-browser",
+  "author": {
+    "name": "KC",
+    "email": "kitaclang@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kitaclang/thai-cut-browser.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kitaclang/thai-cut-browser/issues/"
+  },
+  "licenses": [
+    {
+      "type": "LGPL",
+      "url": "http://www.gnu.org/licenses/lgpl.html"
+    }
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/*.js",
+    "lib/*.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": "^20.0.0 || ^22.0.0 || >=24.0.0"
+  },
+  "keywords": [
+    "word",
+    "thai",
+    "segmentation",
+    "break",
+    "boundary",
+    "typescript",
+    "javascript",
+    "browser",
+    "frontend"
+  ],
+  "dependencies": {},
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "npm run build",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build && vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "typescript": "^5.7.3",
+    "vitest": "^4.0.18"
+  }
+}
