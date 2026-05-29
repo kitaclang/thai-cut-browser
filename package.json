@@ -1,7 +1,7 @@
 {
   "name": "thai-cut-browser",
   "description": "A frontend-optimized thai word breaker fork from wordcut with TypeScript support.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "homepage": "https://github.com/kitaclang/thai-cut-browser",
   "author": {
     "name": "KC",
@@ -22,9 +22,26 @@
   ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./async": {
+      "types": "./lib/async.d.ts",
+      "default": "./lib/async.js"
+    },
+    "./default-dict.txt": {
+      "types": "./assets/default-dict.txt.d.ts",
+      "default": "./assets/default-dict.txt"
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
     "lib/*.js",
     "lib/*.d.ts",
+    "assets/default-dict.txt",
+    "assets/default-dict.txt.d.ts",
     "README.md",
     "LICENSE"
   ],
@@ -44,13 +61,17 @@
   ],
   "dependencies": {},
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build:dict": "tsx scripts/build-default-dict.ts",
+    "build": "npm run build:dict && tsc -p tsconfig.json",
     "prepublishOnly": "npm run build",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "npm run build && vitest run"
   },
   "devDependencies": {
     "@types/node": "^22.13.4",
+    "esbuild": "^0.25.0",
+    "fast-check": "^4.1.1",
+    "tsx": "^4.20.0",
     "typescript": "^5.7.3",
     "vitest": "^4.0.18"
   }

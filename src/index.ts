@@ -1,4 +1,5 @@
 import BaseWordcut = require("./wordcut");
+import { validateWordArray } from "./validate";
 
 export interface WordcutInstance {
   initNoDict(): void;
@@ -22,13 +23,26 @@ function createInstance(): WordcutInstance {
 
 export function createWordcut(options: CreateWordcutOptions = {}): WordcutInstance {
   const instance = createInstance();
+
+  // dictPath rejection must come first regardless of other option values (Req 1.4)
   if (options.dictPath !== undefined) {
     throw new Error(
       "dictPath is no longer supported. Pass dictionaryWords: string[] instead."
     );
   }
 
+  // Validate word arrays before any initialization (Req 1.5)
+  if (options.dictionaryWords !== undefined) {
+    validateWordArray("dictionaryWords", options.dictionaryWords);
+  }
+  if (options.additionalWords !== undefined) {
+    validateWordArray("additionalWords", options.additionalWords);
+  }
+
   if (options.noDict) {
+    if (options.additionalWords !== undefined) {
+      throw new Error("additionalWords cannot be used with noDict: true");
+    }
     instance.initNoDict();
     return instance;
   }

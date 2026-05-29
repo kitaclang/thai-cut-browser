@@ -1,6 +1,5 @@
 import { createPrefixTree } from "./prefixtree";
 import type { Acceptor } from "./acceptors";
-import defaultDictWords from "./default_dict_words";
 
 type DictAcceptor = Acceptor & {
   nodeId: number;
@@ -10,26 +9,20 @@ type DictAcceptor = Acceptor & {
 const WordcutDict = {
   dict: [] as string[],
   tree: createPrefixTree<string | null>([]),
+  defaultWords: undefined as readonly string[] | undefined,
 
   init(words?: string[], withDefault = true, additionalWords?: string[]) {
-    if (words !== undefined && !Array.isArray(words)) {
-      throw new Error("words must be a string[]");
-    }
-
     this.dict = [];
 
     if (words !== undefined) {
       this.addWords(words, false);
     }
 
-    if (withDefault) {
-      this.addWords(Array.from(defaultDictWords), false);
+    if (withDefault && this.defaultWords !== undefined) {
+      this.addWords(Array.from(this.defaultWords), false);
     }
 
     if (additionalWords !== undefined) {
-      if (!Array.isArray(additionalWords)) {
-        throw new Error("additionalWords must be a string[]");
-      }
       this.addWords(additionalWords, false);
     }
 

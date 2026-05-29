@@ -1,5 +1,6 @@
 import WordcutDict = require("./dict");
 import WordcutCore = require("./wordcut_core");
+import defaultDictWords from "./default_dict_words";
 import createPathInfoBuilder from "./path_info_builder";
 import createPathSelector from "./path_selector";
 import createAcceptors from "./acceptors";
@@ -46,7 +47,7 @@ Wordcut.init = function init(words, withDefault, additionalWords) {
   const useDefault = withDefault !== false;
   this.initNoDict();
 
-  const dict = Object.assign({}, this.defaultDict);
+  const dict = Object.assign({}, this.defaultDict, { defaultWords: defaultDictWords });
   dict.init(words, useDefault, additionalWords);
   this.acceptors.creators.push(dict);
 };
